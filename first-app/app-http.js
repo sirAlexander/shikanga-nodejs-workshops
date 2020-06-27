@@ -3,10 +3,11 @@ const Logger = require('./logger');
 
 const logger = new Logger();
 
-const server = http.createServer();
-
-server.on('connection', (socket) => {
-    logger.log('New connection...');
+const server = http.createServer((req, res) => {
+    if (req.url === '/'){
+        res.write('Hello World');
+        res.end();
+    }
 });
 
 server.listen(3000);
