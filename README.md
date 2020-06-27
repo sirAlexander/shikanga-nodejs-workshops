@@ -1,3 +1,3 @@
 # shikanga-nodejs-workshops
 
->>>> 16. Path Module
+>>>> 27. Using a Package
