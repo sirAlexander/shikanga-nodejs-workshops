@@ -1,14 +1,11 @@
-const log = require('./logger');
-const EventEmitter = require('events');
+const Logger = require('./logger');
 
-const emitter = new EventEmitter();
+const logger = new Logger();
 
 // Register a listener
-emitter.on('messageLogged', (eventArg) => {
-    log('Listener called', eventArg);
-})
+logger.on('messageLogged', (eventArg) => {
+    console.log('Listener called', eventArg);
 
-// This Raises an event
-emitter.emit('messageLogged', { id:1, url: 'http://' });
+});
 
-// Emit simply means, making a noise or producing something - signalling that an event has happened.
+logger.log('message');
