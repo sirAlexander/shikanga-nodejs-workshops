@@ -32,10 +32,10 @@ app.get('/api/posts/:year/:month', (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
-    const result = validateCourse(req.body);
-    if(result.error){
+    const { error } = validateCourse(req.body);
+    if(error){
         // 400 Bad Request
-        res.status(400).send(result.error.details[0].message);
+        res.status(400).send(error.details[0].message);
         return;
     }
 
@@ -55,10 +55,10 @@ app.put('/api/courses/:id', (req, res) => {
 
     // validate
     // If invalid, return 400 - Bad request
-    const result = validateCourse(req.body);
-    if(result.error){
+    const { error } = validateCourse(req.body); // result.error
+    if(rerror){
         // 400 Bad Request
-        res.status(400).send(result.error.details[0].message);
+        res.status(400).send(error.details[0].message);
         return;
     }
 
