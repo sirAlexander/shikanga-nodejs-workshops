@@ -32,11 +32,7 @@ app.get('/api/posts/:year/:month', (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
-    const schema = {
-        name: Joi.string().min(3).required()
-    };
-
-    const result = Joi.validate(req.body, schema);
+    const result = validateCourse(req.body);
     if(result.error){
         // 400 Bad Request
         res.status(400).send(result.error.details[0].message);
@@ -50,6 +46,35 @@ app.post('/api/courses', (req, res) => {
     courses.push(course);
     res.send(course);
 });
+
+app.put('/api/courses/:id', (req, res) => {
+    // Look up the course
+    // If it doesn't exist. return 404
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) res.status(404).send('The course with the given Id was not found');
+
+    // validate
+    // If invalid, return 400 - Bad request
+    const result = validateCourse(req.body);
+    if(result.error){
+        // 400 Bad Request
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    // Update course
+    // Return the updated course
+    course.name = req.body.name;
+    res.send(course);
+});
+
+function validateCourse(course) {
+    const schema = {
+        name: Joi.string().min(3).required()
+    };
+
+    return Joi.validate(course, schema);
+}
 
 
 // PORT
