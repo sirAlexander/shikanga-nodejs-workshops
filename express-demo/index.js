@@ -56,7 +56,7 @@ app.put('/api/courses/:id', (req, res) => {
     // validate
     // If invalid, return 400 - Bad request
     const { error } = validateCourse(req.body); // result.error
-    if(rerror){
+    if(error){
         // 400 Bad Request
         res.status(400).send(error.details[0].message);
         return;
