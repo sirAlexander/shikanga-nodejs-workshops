@@ -1,3 +1,4 @@
+const debug = require('debug')('app:startup');
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -7,7 +8,7 @@ const logger = require('./logger');
 
 const app = express();
 
-console.log(`app: ${app.get('env')}`);
+debug(`app: ${app.get('env')}`);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,13 +17,13 @@ app.use(express.static('public'));
 app.use(helmet());
 
 // Configuration
-console.log(`Application Name: ${config.get('name')}`);
-console.log(`Mail Server: ${config.get('mail.host')}`);
-console.log(`Mail Password: ${config.get('mail.password')}`);
+debug(`Application Name: ${config.get('name')}`);
+debug(`Mail Server: ${config.get('mail.host')}`);
+debug(`Mail Password: ${config.get('mail.password')}`);
 
 if(app.get('env') === 'development'){
     app.use(morgan('tiny'));
-    console.log('Morgan enabled...');
+    debug('Morgan enabled...');
 }
 
 
@@ -33,7 +34,6 @@ app.use(function(req, res, next) {
     console.log('Authenticating...');
     next();
 });
-
 
 const courses = [
     { id: 1, name: 'course1' },
