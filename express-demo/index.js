@@ -8,6 +8,9 @@ const logger = require('./logger');
 
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', './views'); // note: this is optional and 'views is also the default location
+
 debug(`app: ${app.get('env')}`);
 
 app.use(express.json());
@@ -42,7 +45,7 @@ const courses = [
 ];
 
 app.get('/', (req, res) => {
-    res.send('Hello World!!!');
+    res.render('index', {title: 'My Express App', message: 'hello'} )
 });
 
 app.get('/api/courses', (req, res) => {
