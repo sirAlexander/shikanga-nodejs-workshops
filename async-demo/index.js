@@ -1,21 +1,22 @@
 console.log('Before');
-getUser(1, displayUser);
+
+getUser(1)
+    .then(user => logUserThenGetRepositories(user))
+    .then(repos => logReposThenGetCommits(repos))
+    .then(commits => console.log('Commits', commits))
+    .catch(error => console.log('Error', err.message));
+
 console.log('After');
 
-function displayCommits(commits){
-    console.log('Commits', commits);
-}
-
-function displayRepositories(repos){
-    console.log('Repos', repos);
-    getCommits(repos[0], displayCommits);
-}
-
-function displayUser(user){
+function logUserThenGetRepositories(user) {
     console.log('User', user);
-    getRepositories(user.gitHubUsername, displayRepositories);
+    return getRepositories(user.gitHubUsername);
 }
 
+function logReposThenGetCommits(repos) {
+    console.log('Repos', repos);
+    return getCommits(repos[0]);
+}
 
 // The 3 patterns used to deal with asynchronous code
 // 1. Callbacks
