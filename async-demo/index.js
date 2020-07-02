@@ -1,24 +1,22 @@
-// Asynchronous
 console.log('Before');
-getUser(1, (user) => {
+getUser(1, displayUser);
+console.log('After');
+
+function displayCommits(commits){
+    console.log('Commits', commits);
+}
+
+function displayRepositories(repos){
+    console.log('Repos', repos);
+    getCommits(repos[0], displayCommits);
+}
+
+function displayUser(user){
     console.log('User', user);
+    getRepositories(user.gitHubUsername, displayRepositories);
+}
 
-    getRepositories(user.gitHubUsername, (repos) => {
-        console.log('Repos', repos);
 
-        geCommits(repo, (commits) => {
-            // CALLBACK HELL!
-        });
-    });
-});
-console.log('After');
-
-// Synchronous version
-console.log('Before');
-const user = getUser(1);
-const repos = getRepositories(user.gitHubUsername);
-const commits = geCommits(repos[0]);
-console.log('After');
 
 
 // The 3 patterns used to deal with asynchronous code
@@ -37,5 +35,12 @@ function getRepositories(username, callback){
     setTimeout(() => {
         console.log('Calling GitHub API...');
         callback(['repo1', 'repo2', 'repo3']);
+    }, 2000);
+}
+
+function getCommits(repo, callback){
+    setTimeout(() => {
+        console.log('Getting repository commits...');
+        callback(['commit1', 'commit2', 'commit3']);
     }, 2000);
 }
