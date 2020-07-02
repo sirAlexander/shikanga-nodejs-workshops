@@ -1,12 +1,25 @@
+// Asynchronous
 console.log('Before');
 getUser(1, (user) => {
     console.log('User', user);
 
     getRepositories(user.gitHubUsername, (repos) => {
         console.log('Repos', repos);
+
+        geCommits(repo, (commits) => {
+            // CALLBACK HELL!
+        });
     });
 });
 console.log('After');
+
+// Synchronous version
+console.log('Before');
+const user = getUser(1);
+const repos = getRepositories(user.gitHubUsername);
+const commits = geCommits(repos[0]);
+console.log('After');
+
 
 // The 3 patterns used to deal with asynchronous code
 // 1. Callbacks
