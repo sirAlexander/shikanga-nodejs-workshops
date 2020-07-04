@@ -9,5 +9,5 @@ const p = new Promise((resolve, reject) => {
 });
 
 p
-.then(result => console.log('Result', result))
-.catch(error => console.log('Error', error.message));
+    .then(result => console.log('Result', result))
+    .catch(error => console.log('Error', error.message));

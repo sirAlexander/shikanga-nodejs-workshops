@@ -4,4 +4,4 @@
 sudo kill -9 $(sudo lsof -t -i:5000)
 ```
 
------>  75. Promises
+----->  79. Parallel Promises
